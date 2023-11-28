@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css */
+
+img-comparison-slider {
+    visibility: hidden;
+}
+
+img-comparison-slider [slot='second'] {
+    display: none;
+}
+
+img-comparison-slider.rendered {
+    visibility: inherit;
+}
+
+img-comparison-slider.rendered [slot='second'] {
+    display: unset;
+}
+
+img-comparison-slider [slot="first"],
+img-comparison-slider [slot="second"] {
+    margin: 0;
+}
+
+img-comparison-slider [slot="first"] figcaption,
+img-comparison-slider [slot="second"] figcaption {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 100%;
+}
+
+img-comparison-slider [slot="first"] figcaption {
+    left: 1rem;
+}
+
+img-comparison-slider [slot="second"] figcaption {
+    right: 1rem;
+}
