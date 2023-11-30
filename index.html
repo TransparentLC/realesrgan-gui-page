@@ -22,7 +22,7 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
-    <header class="fixed w-full">
+    <header class="fixed w-full z-10">
         <nav class="bg-white border-gray-200 py-2 dark:bg-gray-900">
             <div class="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
                 <div class="flex items-center">
@@ -37,7 +37,7 @@
                     </div>
                     <div class="hidden sm:inline-block">
                         <a href="https://github.com/TransparentLC/realesrgan-gui/releases" aria-label="Download TransparentLC/realesrgan-gui from GitHub">
-                            <img class="h-6" src="https://img.shields.io/github/downloads/TransparentLC/realesrgan-gui/total?style=social">
+                            <img id="download-badge" class="h-6" src="https://img.shields.io/github/downloads/TransparentLC/realesrgan-gui/total?style=social">
                         </a>
                     </div>
                 </div>
@@ -250,6 +250,13 @@
             const r = Math.floor(Math.random() * (t === 'realistic' ? 5 : 3));
             document.querySelector('img-comparison-slider [slot="first"] picture').innerHTML = `<source type="image/avif" srcset="images/demo/${t}/${r}-before.avif"><source type="image/webp" srcset="images/demo/${t}/${r}-before.webp"><img class="h-full" src="images/demo/${t}/${r}-before.jpg">`;
             document.querySelector('img-comparison-slider [slot="second"] picture').innerHTML = `<source type="image/avif" srcset="images/demo/${t}/${r}-after.avif"><source type="image/webp" srcset="images/demo/${t}/${r}-after.webp"><img class="h-full" src="images/demo/${t}/${r}-after.jpg">`;
+
+            fetch('https://api.github.com/repos/TransparentLC/realesrgan-gui/releases')
+                .then(r => r.json())
+                .then(r => {
+                    const e = document.getElementById('download-badge');
+                    e.title = e.alt = 'Downloads: ' + r.flatMap(e => e.assets).reduce((acc, cur) => acc += cur.download_count, 0);
+                });
 
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
                 alert('Real-ESRGAN GUI 仅适用于桌面平台。\n如果你正在使用 Android 设备，或许你会对 https://github.com/tumuyan/RealSR-NCNN-Android 感兴趣。');
