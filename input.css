@@ -28,8 +28,8 @@ img-comparison-slider [slot="second"] {
 img-comparison-slider [slot="first"] figcaption,
 img-comparison-slider [slot="second"] figcaption {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: calc(100% - .75rem);
+    transform: translateY(-100%);
     line-height: 100%;
 }
 
