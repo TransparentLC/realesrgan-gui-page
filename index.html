@@ -246,6 +246,15 @@
     <script src="https://fastly.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
     <script>
         (() => {
+            if (!navigator.language.startsWith('zh-')) {
+                const e = '_' + Math.random().toString(16).slice(2, 10);
+                document.body.id = e;
+                const g = document.createElement('script');
+                g.src = 'https://translate.google.com/translate_a/element.js?cb=' + e;
+                window[e] = () => new google.translate.TranslateElement({pageLanguage: 'zh-CN'}, e);
+                document.body.appendChild(g);
+            }
+
             const t = Math.random() < .5 ? 'realistic' : 'anime';
             const r = Math.floor(Math.random() * (t === 'realistic' ? 5 : 3));
             document.querySelector('img-comparison-slider [slot="first"] picture').innerHTML = `<source type="image/avif" srcset="images/demo/${t}/${r}-before.avif"><source type="image/webp" srcset="images/demo/${t}/${r}-before.webp"><img class="h-full" src="images/demo/${t}/${r}-before.jpg">`;
